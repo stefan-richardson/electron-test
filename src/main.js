@@ -65,3 +65,7 @@ ipcMain.on('testing', (e, pack) => {
       content: pack.message
   });
 });
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdates();
+});
