@@ -2,6 +2,8 @@ const electron = require('electron');
 const path = require('path');
 const { app, BrowserWindow, Tray, Menu, ipcMain, dialog, nativeImage } = electron;
 const {autoUpdater} = require('electron-updater');
+const log = require('electron-log');
+const isDev = require('electron-is-dev');
 
 let mainWindow;
 let tray;
@@ -11,15 +13,47 @@ const menuTemplate = [
   { type: 'separator' },
   { label: 'Quit', click: _ => app.quit() }
 ];
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
-autoUpdater.on('update-available', (ev, info) => {
-  const secondWindow = new BrowserWindow({
-    width: 100,
-    height: 100
+let win;
+
+function sendStatusToWindow(text) {
+  log.info(text);
+  win.webContents.send('message', text);
+}
+function createDefaultWindow() {
+  win = new BrowserWindow();
+  win.webContents.openDevTools();
+  win.on('closed', () => {
+    win = null;
   });
+  win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
+  return win;
+}
 
-  secondWindow.loadURL(`http://www.github.ca`);
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('Checking for update...');
 })
+autoUpdater.on('update-available', (ev, info) => {
+  sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (ev, info) => {
+  sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (ev, err) => {
+  sendStatusToWindow('Error in auto-updater.');
+})
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(log_message);
+})
+autoUpdater.on('update-downloaded', (ev, info) => {
+  sendStatusToWindow('Update downloaded; will install in 5 seconds');
+});
 
 app.on('ready', () => {
   console.log('app Available');
@@ -56,7 +90,6 @@ app.on('ready', () => {
       e.preventDefault();
     }
   });
-;
 });
 
 ipcMain.on('testing', (e, pack) => {
@@ -67,5 +100,9 @@ ipcMain.on('testing', (e, pack) => {
 });
 
 app.on('ready', function()  {
-  autoUpdater.checkForUpdates();
+  createDefaultWindow();
+  if(!isDev) {
+    autoUpdater.checkForUpdates();
+  }
+
 });

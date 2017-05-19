@@ -1,6 +1,6 @@
 {
   "name": "freedom-desktop",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Electron wrapper to provide native functionality.",
   "main": "src/main.js",
   "scripts": {
@@ -36,8 +36,10 @@
     ]
   },
   "dependencies": {
+    "electron-is-dev": "^0.1.2",
+    "electron-log": "^2.2.6",
     "electron-plugins": "^0.1.0",
-    "electron-updater-tools": "^0.3.2",
-    "electron-updater": "^1.15.0"
+    "electron-updater": "^1.15.0",
+    "electron-updater-tools": "^0.3.2"
   }
 }
