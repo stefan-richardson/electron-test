@@ -1,11 +1,11 @@
 const electron = require('electron');
 const path = require('path');
 
-const { app, BrowserWindow, Tray, Menu, ipcMain, dialog } = electron;
+const { app, BrowserWindow, Tray, Menu, ipcMain, dialog, nativeImage } = electron;
 
 let mainWindow;
 let tray;
-const appImage = path.join('src/assets', 'accuro.ico');
+const appImage = nativeImage.createFromPath(path.join('build', 'accuro.ico'))
 const menuTemplate = [
   { label: 'Something Here', enabled: false },
   { type: 'separator' },
