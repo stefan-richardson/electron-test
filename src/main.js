@@ -13,7 +13,12 @@ const menuTemplate = [
 ];
 
 autoUpdater.on('update-available', (ev, info) => {
-  console.log('Update Available');
+  const secondWindow = new BrowserWindow({
+    width: 100,
+    height: 100
+  });
+
+  secondWindow.loadURL(`http://www.google.ca`);
 })
 
 app.on('ready', () => {
