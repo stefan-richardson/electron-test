@@ -31,7 +31,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    title: 'Pharmacy',
+    title: 'Pharmacy this is a test',
     icon: appImage,
   });
 
