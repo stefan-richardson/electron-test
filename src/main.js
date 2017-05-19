@@ -1,7 +1,7 @@
 const electron = require('electron');
 const path = require('path');
-
 const { app, BrowserWindow, Tray, Menu, ipcMain, dialog, nativeImage } = electron;
+const {autoUpdater} = require('electron-updater')
 
 let mainWindow;
 let tray;
@@ -11,6 +11,10 @@ const menuTemplate = [
   { type: 'separator' },
   { label: 'Quit', click: _ => app.quit() }
 ];
+
+autoUpdater.on('update-available', (ev, info) => {
+  alert('Update Available');
+})
 
 
 app.on('ready', () => {
@@ -47,6 +51,7 @@ app.on('ready', () => {
       e.preventDefault();
     }
   });
+;
 });
 
 ipcMain.on('testing', (e, pack) => {
