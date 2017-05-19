@@ -1,0 +1,7 @@
+{
+    "name": "freedomdesktop",
+    "description": "Electron wrapper to provide native functionality.",
+    "version": "0.3.0",
+    "author": "",
+    "main": "main.js"
+}

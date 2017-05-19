@@ -1,0 +1,37 @@
+{
+  "name": "freedom-desktop",
+  "version": "0.2.0",
+  "description": "Electron wrapper to provide native functionality.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "release": "standard-version",
+    "dist": "build -w --x64 --ia32"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qhrtech/freedom-desktop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qhrtech/freedom-desktop/issues"
+  },
+  "homepage": "https://github.com/qhrtech/freedom-desktop#readme",
+  "devDependencies": {
+    "electron": "1.6.6",
+    "electron-builder": "^17.8.0",
+    "electron-packager": "^8.7.0",
+    "standard-version": "^4.0.0",
+    "electron-updater": "^1.15.0"
+  },
+  "build": {
+    "appId": "freedom.desktop",
+    "publish": [{
+       "provider": "github",
+       "owner": "stefan-richardson",
+       "repo": "electron-test"
+     }]
+  }
+}
