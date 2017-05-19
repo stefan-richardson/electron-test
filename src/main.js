@@ -1,7 +1,7 @@
 const electron = require('electron');
 const path = require('path');
 const { app, BrowserWindow, Tray, Menu, ipcMain, dialog, nativeImage } = electron;
-const {autoUpdater} = require('electron-updater')
+const {autoUpdater} = require('electron-updater');
 
 let mainWindow;
 let tray;
@@ -13,11 +13,11 @@ const menuTemplate = [
 ];
 
 autoUpdater.on('update-available', (ev, info) => {
-  alert('Update Available');
+  console.log('Update Available');
 })
 
-
 app.on('ready', () => {
+  console.log('app Available');
   const contextMenu = Menu.buildFromTemplate(menuTemplate);
 
   tray = new Tray(appImage);
@@ -33,7 +33,7 @@ app.on('ready', () => {
   mainWindow.setMenu(null)
 
   mainWindow.loadURL(`http://localhost:4200`);
-
+  mainWindow.webContents.openDevTools();
   mainWindow.on('page-title-updated', (e, title) => {
     e.preventDefault();
   })
