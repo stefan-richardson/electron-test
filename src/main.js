@@ -18,7 +18,7 @@ autoUpdater.on('update-available', (ev, info) => {
     height: 100
   });
 
-  secondWindow.loadURL(`http://www.google.ca`);
+  secondWindow.loadURL(`http://www.github.ca`);
 })
 
 app.on('ready', () => {
